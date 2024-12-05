@@ -16,9 +16,14 @@ export const globalConfig = {
 };
 
 export const apiConfig = {
-  apiKey: "15d2ea6d0dc1d476efbca3eba2b9bbfb",
-  langIso: "es-ES",
+  apiKey: "536f1062e97de4146b10c5f5921ecb88",
+  langIso: "en-EN",
   baseUrl: "https://api.themoviedb.org/3/",
   posterBaseUrl: "http://image.tmdb.org/t/p",
   backdropBaseUrl: "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces",
 };
+
+// Almaceno el id al cual se le pulsa
+export let objectIdMovie = ({
+  valorId: "",
+})

@@ -1,13 +1,13 @@
-/*
-body{
-  background: rgb(63,64,65);
-  background: linear-gradient(90deg, rgba(63,64,65,1) 4%, rgba(73,73,75,1) 52%, rgba(44,45,45,0.7865429234338748) 96%);
+body {
+  background: rgb(63, 64, 65);
+  background: linear-gradient(
+    90deg,
+    rgba(63, 64, 65, 1) 4%,
+    rgba(73, 73, 75, 1) 52%,
+    rgba(44, 45, 45, 0.7865429234338748) 96%
+  );
 }
-#app{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row
-}
+
 .movie-toolbar-wrapper {
   @extend .py-2;
   background-color: #eee;
@@ -18,13 +18,18 @@ body{
   @extend .mt-5;
 }
 
-.movie-grid, .movie-list{
-  background: rgb(232,235,236);
-  background: linear-gradient(90deg, rgba(232,235,236,1) 4%, rgba(195,195,207,1) 52%, rgba(217,223,226,0.7865429234338748) 96%);
+.movie-grid,
+.movie-list {
+  background: rgb(232, 235, 236);
+  background: linear-gradient(
+    90deg,
+    rgba(232, 235, 236, 1) 4%,
+    rgba(195, 195, 207, 1) 52%,
+    rgba(217, 223, 226, 0.7865429234338748) 96%
+  );
   padding: 10px;
   border-radius: 20px;
 }
-
 
 .movie-grid,
 .movie-list,
@@ -34,8 +39,6 @@ body{
     overflow: hidden;
     object-fit: cover;
     border-radius: $border-radius;
-    
-
 
     &:hover {
       cursor: pointer;
@@ -52,7 +55,6 @@ body{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
   }
 
   .movie-overview {
@@ -131,129 +133,102 @@ body{
 #search-movie-input {
   border: none;
 }
-*/
-
-body {
-  background: rgb(63, 64, 65);
-  background: linear-gradient(90deg, rgba(63, 64, 65, 1) 4%, rgba(73, 73, 75, 1) 52%, rgba(44, 45, 45, 0.7865429234338748) 96%);
-}
-
-#app {
-  display: flex; // Usar Flexbox
-  flex-wrap: wrap; // Permitir ajuste en múltiples filas
-  gap: 20px; // Espaciado uniforme entre las tarjetas
-  justify-content: flex-start; // Alineación a la izquierda
-  max-inline-size: 1300px
-}
-
-
-.movie-toolbar-wrapper {
-  @extend .py-2;
-  background-color: #eee;
-  border-bottom: 1px solid #ddd;
-}
 
 #movie-list-container {
-  @extend .mt-5;
+  gap: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  // padding-block-start: 20px;
 }
 
-.movie-grid, .movie-list {
-  background: rgb(232, 235, 236);
-  background: linear-gradient(90deg, rgba(232, 235, 236, 1) 4%, rgba(195, 195, 207, 1) 52%, rgba(217, 223, 226, 0.7865429234338748) 96%);
-  padding: 10px;
-  border-radius: 20px;
+.container-center {
+  margin: auto;
 }
-
 .movie-grid {
-  flex: 1 1 calc(25% - 20px);
-  max-width: 300px; // Límite máximo de ancho para cada tarjeta
-  box-sizing: border-box; // Incluye padding en el tamaño total
-  padding: 10px;
-  border-radius: 20px;
+  min-block-size: 626px;
+}
 
-  .movie-poster {
-    width: 100%; // Ocupa todo el ancho del contenedor
-    height: 400px; // Altura fija
-    object-fit: cover; // Evita deformaciones de la imagen
-    border-radius: 10px;
-
-    &:hover {
+.views-movie {
+  block-size: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  div {
+    button {
+      outline: none;
       cursor: pointer;
-      opacity: 70%;
+      border: none;
+      padding: 0.9rem 2rem;
+      margin: 0;
+      font-family: inherit;
+      font-size: inherit;
+      position: relative;
+      display: inline-block;
+      letter-spacing: 0.05rem;
+      font-weight: 700;
+      font-size: 17px;
+      border-radius: 500px;
+      overflow: hidden;
+      background: #a4a8a4;
+      color: rgb(231, 231, 231);
+    }
+
+    button span {
+      position: relative;
+      z-index: 10;
+      transition: color 0.4s;
+    }
+
+    button:hover span {
+      color: black;
+    }
+
+    button::before,
+    button::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    button::before {
+      content: "";
+      background: #000;
+      width: 120%;
+      left: -10%;
+      transform: skew(30deg);
+      transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+    }
+
+    button:hover::before {
+      transform: translate3d(100%, 0, 0);
     }
   }
-
-  .movie-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-top: 10px;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  select {
+    background-color: rgb(0, 0, 0);
+    color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    // padding: 8px 16px;
+    padding: 0.9rem 2rem;
+    font-size: 14px;
+    width: 100%;
+    max-width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
   }
 
-  .movie-overview {
-    margin-top: 5px;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-align: justify;
-  }
-}
-
-.movie-list {
-  @extend .my-2;
-
-  .movie-title {
-    @extend .mb-1;
+  select:hover {
+    border-color: #bbb;
   }
 
-  .movie-overview {
-    @extend .mb-0;
-    -webkit-line-clamp: 2;
+  select:focus {
+    outline: none;
+    border-color: #a4a8a4;
+    box-shadow: 0 0 4px rgba(74, 74, 75, 0.5);
   }
-}
-
-.movie-details {
-  color: white;
-  background-color: black;
-  background-size: cover;
-  background-position: center;
-
-  .movie-poster:hover {
-    opacity: 100%;
-    cursor: default;
-  }
-
-  .movie-backdrop-overlay {
-    @extend .py-5;
-    background-color: rgba(0, 0, 0, 0.7);
-    filter: none;
-  }
-
-  .movie-title {
-    font-size: 2.5rem;
-  }
-
-  .movie-overview {
-    font-size: 1.3rem;
-
-    &-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-  }
-
-  .movie-data {
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-}
-
-#search-movie-input {
-  border: none;
 }

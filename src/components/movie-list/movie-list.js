@@ -4,11 +4,12 @@ import { fetchMoviesData } from "../../utils/api.utils";
 
 
 
-export async function getMovieListData() {
+export async function getMovieListData(element) {
     // Traemos los datos del servidor (el popular es lo que me va cambiando el tipo de listado de pelis)
     // al tener un objeto ya con las listas de peliculas nos lo traemos en un 
     // en un futuro pasarselo por parametros
-    const url = getMovieListUrl(MovieListType.popular)
+    
+    const url = getMovieListUrl(element)
     const data = await fetchMoviesData(url)
     return data?.results
 }
