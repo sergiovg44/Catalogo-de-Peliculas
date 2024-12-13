@@ -318,9 +318,11 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 8);
     border-radius: 10px;
     background-image: url('');
+
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
+    // opacity: 50%;
   }
   h2 {
     font-size: 1.5rem;

@@ -1,13 +1,13 @@
 import { fetchMoviesData } from "../../utils/api.utils"
 import { createMoviePage } from "../movie-detail/movie-detail"
-import{
+import {
   apiConfig,
   objectIdMovie
 } from "../../config/config.js"
 import {
   getMovieListUrl,
   getMoviePosterUrl,
-  
+
 } from "../../utils/api.utils.js"
 
 
@@ -16,7 +16,7 @@ async function getMovieListData(element) {
   // Traemos los datos del servidor (el popular es lo que me va cambiando el tipo de listado de pelis)
   // al tener un objeto ya con las listas de peliculas nos lo traemos en un 
   // en un futuro pasarselo por parametros
-  
+
   const url = getMovieListUrl(element)
   const data = await fetchMoviesData(url)
   return data?.results
@@ -35,7 +35,7 @@ function movieGrid(id) {
   const divGrid = document.createElement("div")
   divGrid.classList = "movie-grid col-lg-3 col-md-4 col-sm-6"
 
-  divGrid.addEventListener("click",()=>{
+  divGrid.addEventListener("click", () => {
     objectIdMovie.valorId = id
     createMoviePage(id)
   })
@@ -77,29 +77,29 @@ function moviOverview(overview) {
   const divOverview = document.createElement("div")
   divOverview.classList = "movie-overview"
   divOverview.textContent = overview
-  return divOverview 
+  return divOverview
 }
-function movieId (id) {
+function movieId(id) {
   const divId = document.createElement("div")
   divId.classList = "movie-id"
   divId.textContent = id
   return divId
 }
 
-export function container (){
+export function container() {
   const app = document.querySelector("#app")
   let createElementContainer = movieContainer()
   app.classList.add("grid")
   app.appendChild(createElementContainer)
-  
+
 }
 
 export function connectionParent(movie) {
   const createElementContainer = document.querySelector("#movie-list-container")
 
   const selectView = document.querySelector('#select-views')
-  selectView.classList.remove ('views-movie-none')
-  selectView.classList.add ('views-movie')
+  selectView.classList.remove('views-movie-none')
+  selectView.classList.add('views-movie')
   const createElementGrid = movieGrid(movie.id)
   createElementContainer.appendChild(createElementGrid)
   createElementGrid.appendChild(moviePoster(movie.backdrop_path))
@@ -109,21 +109,21 @@ export function connectionParent(movie) {
   createElementGrid.appendChild(moviOverview(movie.overview))
   createElementGrid.appendChild(movieId(movie.id))
 }
-export function listMoviesGrid (valueSelect){
+export function listMoviesGrid(valueSelect) {
 
- getMovieListData(valueSelect).then((movieListData) =>{
-     // console.log(movieListData)
-     // Este es la funcion que crea el div con clase container 
+  getMovieListData(valueSelect).then((movieListData) => {
+    // console.log(movieListData)
+    // Este es la funcion que crea el div con clase container 
     //  esta clase no debe estar cuando este en modo lista
-     container ()
+    container()
 
-     // el bucle que crea todas las peliculas
-     movieListData.forEach(element => {
-         connectionParent(element)
-        //  connectionParentList(element)
+    // el bucle que crea todas las peliculas
+    movieListData.forEach(element => {
+      connectionParent(element)
+      //  connectionParentList(element)
 
-     });
- })
+    });
+  })
 }
 
 
@@ -136,8 +136,8 @@ function movieList() {
 function movieRow(id) {
   const divRow = document.createElement("div")
   divRow.classList = "row"
-  
-  divRow.addEventListener("click",()=>{
+
+  divRow.addEventListener("click", () => {
     objectIdMovie.valorId = id
     createMoviePage(id)
 
@@ -166,8 +166,8 @@ export function connectionParentList(movie) {
   const createApp = document.querySelector("#app")
 
   const selectView = document.querySelector('#select-views')
-  selectView.classList.remove ('views-movie-none')
-  selectView.classList.add ('views-movie')
+  selectView.classList.remove('views-movie-none')
+  selectView.classList.add('views-movie')
   createApp.classList.add("row")
   createApp.classList.add("container-center")
 
@@ -178,11 +178,11 @@ export function connectionParentList(movie) {
   const createCol1 = col1()
   createRow.appendChild(createCol1)
   createCol1.appendChild(moviePoster(movie.backdrop_path))
-  
+
   const createCol11 = col11()
   createRow.appendChild(createCol11)
   createCol11.appendChild(movieTitle(movie.title))
-  
+
   createCol11.appendChild(movieRating(movie.vote_average))
   createCol11.appendChild(moviYear(movie.release_date))
   createCol11.appendChild(moviOverview(movie.overview))
@@ -201,16 +201,41 @@ export function removeAll() {
 }
 
 
-export function listMoviesList (valueSelect){
+export function listMoviesList(valueSelect) {
 
-  getMovieListData(valueSelect).then((movieListData) =>{
-      // console.log(movieListData)
+  getMovieListData(valueSelect).then((movieListData) => {
+    // console.log(movieListData)
 
-      const eventCard = document.querySelector(".row")
-      movieListData.forEach(element => {
-          // connectionParent(element)
-          connectionParentList(element)
-          
-      });
+
+    movieListData.forEach(element => {
+      // connectionParent(element)
+      connectionParentList(element)
+
+    });
   })
- }
+}
+
+
+export function listMoviesSearchList(search) {
+
+
+  search.forEach(element => {
+
+    connectionParentList(element)
+
+  });
+}
+
+export function listMoviesSearchGrid(search) {
+
+ 
+
+    container()
+
+ 
+    search.forEach(element => {
+      connectionParent(element)
+
+
+    });
+  }
