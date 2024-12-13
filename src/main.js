@@ -2,50 +2,54 @@ import "./scss/style.scss";
 
 import {
         listMoviesList,
-        removeAllList,
-        removeAllGrid,
+        removeAll,
+
         listMoviesGrid,
 
-} from "./utils/api.utils"
+} from "./utils/api.utils.js"
 
-import  {objectIdMovie} from "./config/config.js"
+import  {objectIdMovie,
+        objectValueSelect,
+        objectViewGrid
+} from "./config/config.js"
+
+ import { createMoviePage,
+        
+ } from "./components/movie-detail/movie-detail.js";
 
 // import {
-//     getMovieListData,
-//     // addmovieListElemnt
-// } from "./components/movie-list/movie-list"
-
-// import { connectionParent } from "./utils/api.utils.js"
-// import { container  } from "./utils/api.utils.js"
+//         getMovieDetailsUrl,
+//         fetchMoviesData
+// } from "./utils/api.utils.js"
 
 
 // estado de la vista si es true esta en modo cuadricula y el valor del selecctor
-let viewGrid = true
+// let viewGrid = true
 // estado de la lista 
-let valueSelect = "popular"
+// let valueSelect = "popular"
 
 // El objeto objectIdMovie.valorId esta almacenando el id de las peliculas cuando se pulsa alguna //
 
 
 
 const selectList = document.querySelector("#select-list")
-
-listMoviesGrid(valueSelect)
+// si comentas esta linea deja de aparecer para hacer pruebas
+listMoviesGrid(objectValueSelect.valueSelect)
 selectList.addEventListener("change", () => {
-        valueSelect = selectList.value
-        console.log(valueSelect)
-        console.log(viewGrid)
-        console.log(objectIdMovie.valorId)
+        objectValueSelect.valueSelect = selectList.value
+        // console.log(objectValueSelect.valueSelect)
+        // console.log(objectViewGrid.viewGrid)
+        // console.log(objectIdMovie.valorId)
         
-        if (viewGrid === true) {
-                removeAllGrid()
+        if (objectViewGrid.viewGrid === true) {
+                removeAll()
 
-                listMoviesGrid(valueSelect)
+                listMoviesGrid(objectValueSelect.valueSelect)
 
-        } else if (viewGrid === false) {
+        } else if (objectViewGrid.viewGrid === false) {
 
-                removeAllList()
-                listMoviesList(valueSelect)
+                removeAll()
+                listMoviesList(objectValueSelect.valueSelect)
         }
 
 })
@@ -53,19 +57,20 @@ selectList.addEventListener("change", () => {
 const buttonGrid = document.querySelector("#button-grid")
 
 buttonGrid.addEventListener("click" ,() => {
-        if (viewGrid === false ) {
-                removeAllList()
-                listMoviesGrid(valueSelect)
-                console.log(viewGrid)
-                viewGrid = !viewGrid
+        if (objectViewGrid.viewGrid === false ) {
+                removeAll()
+                listMoviesGrid(objectValueSelect.valueSelect)
+                // console.log(objectViewGrid.viewGrid)
+                objectViewGrid.viewGrid = !objectViewGrid.viewGrid
         }
 })
 const buttonRow = document.querySelector("#button-row")
 
 buttonRow.addEventListener("click" ,() => {
-        if (viewGrid === true ) {
-                removeAllGrid()
-                listMoviesList(valueSelect)
-                viewGrid = !viewGrid
+        if (objectViewGrid.viewGrid === true ) {
+                removeAll()
+                listMoviesList(objectValueSelect.valueSelect)
+                objectViewGrid.viewGrid = !objectViewGrid.viewGrid
         }
 })
+

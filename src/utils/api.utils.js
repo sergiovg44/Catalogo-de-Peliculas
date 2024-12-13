@@ -1,11 +1,13 @@
 import { apiConfig, objectIdMovie } from "../config";
 
+import { createMoviePage } from "../components/movie-detail/movie-detail.js";
+// import {
+//   getMovieListData,
 
-import {
-  getMovieListData,
-  // addmovieListElemnt
-} from "../components/movie-list/movie-list.js"
-// /components/movie-list/movie-list
+// } from "../components/movie-list/movie-list.js"
+
+import { fetchMoviesData } from "../components/movie-list/movie-list.js";
+
 
 export function getMoviePosterUrl(path, width = 400) {
   return `${apiConfig.posterBaseUrl}/w${width}/${path}`;
@@ -48,19 +50,16 @@ export function getMovieSearchUrl(query, page = 1) {
   return movieSearchUrl;
 }
 
-export async function fetchMoviesData(url) {
-  const response = await fetch(url);
-  const data = await response.json();
-// console.log (data.results)
-  if (data?.success === false)
-    throw new Error(
-      `Error: ${data?.status_message ?? "something whent wrong"}`
-    );
 
-  return data;
+async function getMovieListData(element) {
+  // Traemos los datos del servidor (el popular es lo que me va cambiando el tipo de listado de pelis)
+  // al tener un objeto ya con las listas de peliculas nos lo traemos en un 
+  // en un futuro pasarselo por parametros
+  
+  const url = getMovieListUrl(element)
+  const data = await fetchMoviesData(url)
+  return data?.results
 }
-
-
 // Funcion para crear el div que contiene toda para la vista de cuadricula
 
 function movieContainer() {
@@ -77,7 +76,7 @@ function movieGrid(id) {
 
   divGrid.addEventListener("click",()=>{
     objectIdMovie.valorId = id
-    
+    createMoviePage(id)
   })
   return divGrid
 }
@@ -137,6 +136,9 @@ export function container (){
 export function connectionParent(movie) {
   const createElementContainer = document.querySelector("#movie-list-container")
 
+  const selectView = document.querySelector('#select-views')
+  selectView.classList.remove ('views-movie-none')
+  selectView.classList.add ('views-movie')
   const createElementGrid = movieGrid(movie.id)
   createElementContainer.appendChild(createElementGrid)
   createElementGrid.appendChild(moviePoster(movie.backdrop_path))
@@ -173,9 +175,16 @@ function movieList() {
 function movieRow(id) {
   const divRow = document.createElement("div")
   divRow.classList = "row"
+  
   divRow.addEventListener("click",()=>{
     objectIdMovie.valorId = id
-    
+    createMoviePage(id)
+
+
+
+
+
+
   })
   return divRow
 }
@@ -194,6 +203,10 @@ function col11() {
 
 export function connectionParentList(movie) {
   const createApp = document.querySelector("#app")
+
+  const selectView = document.querySelector('#select-views')
+  selectView.classList.remove ('views-movie-none')
+  selectView.classList.add ('views-movie')
   createApp.classList.add("row")
   createApp.classList.add("container-center")
 
@@ -219,23 +232,11 @@ export function connectionParentList(movie) {
 
 
 // Aqui en un futuro hay que añadir tambien para que borre el modo lista y el de detalles
-export function removeAllGrid() {
-  // const totalMovie = document.getElementsByClassName
-  
-  const movie = document.querySelector("#movie-list-container")
-  // const totalMovie = movie.length
-        movie.remove()
-}
 
-export function removeAllList() {
-  // const totalMovie = document.getElementsByClassName
-  
-  const movie = document.querySelectorAll(".movie-list")
-  // const totalMovie = movie.length
-        movie.forEach(element => {
-          element.remove()
-          
-        });
+
+export function removeAll() {
+  const app = document.querySelector('#app');
+  app.innerHTML = '';
 }
 
 
@@ -253,6 +254,8 @@ export function listMoviesList (valueSelect){
   })
  }
 /*
+
+
 <div id="movie-list-container" class="container">
 <div class="movie-grid col-lg-3 col-md-4 col-sm-6">
   <img

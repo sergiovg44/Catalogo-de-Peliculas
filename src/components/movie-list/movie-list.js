@@ -1,16 +1,14 @@
-import { getMovieListUrl } from "../../utils/api.utils";
-import { MovieListType , MovieListLayout } from "../../config/config";
-import { fetchMoviesData } from "../../utils/api.utils";
 
 
 
-export async function getMovieListData(element) {
-    // Traemos los datos del servidor (el popular es lo que me va cambiando el tipo de listado de pelis)
-    // al tener un objeto ya con las listas de peliculas nos lo traemos en un 
-    // en un futuro pasarselo por parametros
-    
-    const url = getMovieListUrl(element)
-    const data = await fetchMoviesData(url)
-    return data?.results
-}
-
+ export async function fetchMoviesData(url) {
+    const response = await fetch(url);
+    const data = await response.json();
+  // console.log (data.results)
+    if (data?.success === false)
+      throw new Error(
+        `Error: ${data?.status_message ?? "something whent wrong"}`
+      );
+  
+    return data;
+  }

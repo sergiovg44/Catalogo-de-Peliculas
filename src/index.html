@@ -52,48 +52,25 @@
     </nav>
 
     <!-- APP -->
-  
-      <div class="views-movie container">
-        <div>
-          <button id="button-grid" class="boton-view"><span>Cuadricula</span></button>
-          <button id="button-row" class="boton-view"><span>Listado</span></button>
-        </div>
-        <select name="" id="select-list">
-          <option value="popular" selected>Popular</option>
-          <option value="top_rated">Mejor calificados</option>
-          <option value="upcoming">Proximamente</option>
-          <option value="now_playing">En cartelera</option>
-        </select>
+
+    <div class="views-movie-none container" id="select-views">
+      <div>
+        <button id="button-grid" class="boton-view">
+          <span>Cuadricula</span>
+        </button>
+        <button id="button-row" class="boton-view"><span>Listado</span></button>
       </div>
-    
-    <div id="app"  class="container">
+      <select name="" id="select-list">
+        <option value="popular" selected>Popular</option>
+        <option value="top_rated">Mejor calificados</option>
+        <option value="upcoming">Proximamente</option>
+        <option value="now_playing">En cartelera</option>
+      </select>
     </div>
 
+    <div id="app" class="container"></div>
 
-  <!-- <div id="app"> -->
-    <!-- <div class="movie-list">
-          <div class="row">
-            <div class="col-1">
-              <img
-                src="http://image.tmdb.org/t/p/w500//qJ2tW6WMUDux911r6m7haRef0WH.jpg"
-                class="movie-poster"
-              />
-            </div>
-            <div class="col-11">
-              <div class="movie-title">Vaiana 2</div>
-              <div class="movie-data">7.2</div>
-              <div class="movie-data">2024</div>
-              <div class="movie-overview">
-                Tras recibir una inesperada llamada de sus antepasados, Vaiana
-                debe viajar a los lejanos mares de Oceanía y adentrarse en
-                peligrosas aguas perdidas para vivir una aventura sin
-                precedentes.
-              </div>
-            </div>
-          </div>
-        </div> -->
-      <!-- </div> -->
-    
+
 
     <!-- FOOTER -->
     <footer class="py-3 mt-4 bg-dark text-white">
@@ -128,7 +105,6 @@
         </ul>
       </div>
     </footer>
-
-    <script type="module" src="/main.js"></script>
   </body>
+  <script type="module" src="/main.js"></script>
 </html>
