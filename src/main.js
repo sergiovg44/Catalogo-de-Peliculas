@@ -6,7 +6,7 @@ import {
 
         listMoviesGrid,
 
-} from "./utils/api.utils.js"
+} from "./components/movie-list/movie-list.js"
 
 import  {objectIdMovie,
         objectValueSelect,

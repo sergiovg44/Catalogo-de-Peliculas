@@ -1,13 +1,14 @@
 import {
-  getMovieDetailsUrl,
-  getMoviePosterUrl,
+
   listMoviesList,
   listMoviesGrid,
-} from "../../utils/api.utils"
+} from "../movie-list/movie-list.js"
 
 import{
-  fetchMoviesData
-} from "../movie-list/movie-list.js"
+  fetchMoviesData,
+  getMovieDetailsUrl,
+  getMoviePosterUrl,
+} from "../../utils/api.utils.js"
 import {
 
   apiConfig,
@@ -21,17 +22,6 @@ import {
 
 
 
-//   getMovieDetailsUrl (id)
-
-
-// `https://api.themoviedb.org/3/movie/${id}?language=en-EN&api_key=536f1062e97de4146b10c5f5921ecb88`
-
-
-
-// esta funcion me devuelve el array con los datos 
-
-// URL de la API
-// const url = `https://api.themoviedb.org/3/movie/${id}?language=en-EN&api_key=536f1062e97de4146b10c5f5921ecb88`;
 
  async function getMovieListData(element) {
         // Traemos los datos del servidor (el popular es lo que me va cambiando el tipo de listado de pelis)
@@ -40,7 +30,7 @@ import {
         
         const url = getMovieDetailsUrl(element)
         const data = await fetchMoviesData(url)
-        // console.log(data)
+
         return data
     }
     
@@ -53,10 +43,10 @@ import {
 
 
 // Crear el banner individualmente
-function createMovieBannerImage(imageUrl, altText) {
+function createMovieBannerImage(imageUrl) {
   const img = document.createElement('img');
   img.src = getMoviePosterUrl(imageUrl, 500);
-  // img.alt = altText;
+
   return img;
 }
 
@@ -142,8 +132,7 @@ export async function createMoviePage(id) {
   infoContainer.className = 'informacion';
   const genreNames = movieData.genres.map(genre => genre.name).join(', ');
   const genreDetail = createMovieDetail('Género', genreNames , 'genre');
-  console.log(genreNames)
-  // const durationDetail = createMovieDetail('Director', movieDataCredit.directors[0].name, 'director');
+  // console.log(genreNames)
   const ratingDetail = createMovieDetail('Rating', movieData.vote_average, 'rating');
   const yearDetail = createMovieDetail('Año', movieData.release_date, 'year');
 
@@ -166,8 +155,7 @@ export async function createMoviePage(id) {
   synopsisContainer.appendChild(synopsisContent);
   secondaryContainer.appendChild(synopsisContainer);
 
-  // Crear el boton 
-  // const volver =  crearBotonVolver()
+
   secondaryContainer.appendChild(crearBotonVolver());
 
 
@@ -180,10 +168,7 @@ export async function createMoviePage(id) {
 
 
 
-// const data = await getMovieListData(id)
 
-// console.log(data)
-// createMoviePage (data)
 
 
 async function getMovieCredit(element) {
@@ -205,16 +190,12 @@ async function getMovieCredit(element) {
 const directors = data.crew
     .filter(crewMember => crewMember.department === "Directing" && crewMember.known_for_department === "Directing" && crewMember.job === "Director" )
     .map(director => ({
-        name: director.name,
         job: director.job
         
     }));
 
-    let actorDirecting = {actors , directors}
-    // console.log(actorDirecting)
+    let actorDirecting = {actors}
+
   return actorDirecting
 }
 
-// const dataCredit = await getMovieCredit (id)
-
-// console.log(dataCredit)

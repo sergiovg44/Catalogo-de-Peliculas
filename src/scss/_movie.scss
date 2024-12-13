@@ -7,9 +7,7 @@ body {
     rgba(44, 45, 45, 0.7865429234338748) 96%
   );
 }
-#app{
-  padding-block-start: 50px
-}
+
 .movie-toolbar-wrapper {
   @extend .py-2;
   background-color: #eee;
@@ -394,7 +392,10 @@ body {
       transform: translate3d(100%, 0, 0);
     }
   }
+  #app{
+    padding-block-start: 50px;
 
+  }
   .movie-id{
     display: none;
   }
