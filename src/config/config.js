@@ -36,6 +36,11 @@ export let objectViewGrid = {
     valueSelect: "popular",
   }
 
+  export let objectValueSearch = {
+    valueSearch: '',
+    searchApiResult: ''
+  }
+
 /*
 
 {

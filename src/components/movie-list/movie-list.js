@@ -112,7 +112,7 @@ export function connectionParent(movie) {
 export function listMoviesGrid(valueSelect) {
 
   getMovieListData(valueSelect).then((movieListData) => {
-    // console.log(movieListData)
+
     // Este es la funcion que crea el div con clase container 
     //  esta clase no debe estar cuando este en modo lista
     container()
@@ -120,7 +120,7 @@ export function listMoviesGrid(valueSelect) {
     // el bucle que crea todas las peliculas
     movieListData.forEach(element => {
       connectionParent(element)
-      //  connectionParentList(element)
+
 
     });
   })
@@ -140,7 +140,7 @@ function movieRow(id) {
   divRow.addEventListener("click", () => {
     objectIdMovie.valorId = id
     createMoviePage(id)
-
+    
 
 
 
@@ -204,11 +204,11 @@ export function removeAll() {
 export function listMoviesList(valueSelect) {
 
   getMovieListData(valueSelect).then((movieListData) => {
-    // console.log(movieListData)
+
 
 
     movieListData.forEach(element => {
-      // connectionParent(element)
+
       connectionParentList(element)
 
     });

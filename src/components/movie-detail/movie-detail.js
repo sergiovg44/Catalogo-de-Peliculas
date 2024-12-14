@@ -2,6 +2,8 @@ import {
 
   listMoviesList,
   listMoviesGrid,
+  listMoviesSearchList,
+  listMoviesSearchGrid
 } from "../movie-list/movie-list.js"
 
 import {
@@ -13,7 +15,8 @@ import {
 
   apiConfig,
   objectValueSelect,
-  objectViewGrid
+  objectViewGrid,
+  objectValueSearch
 } from "../../config/config.js"
 
 
@@ -68,11 +71,24 @@ function crearBotonVolver() {
 
   boton.innerHTML = `<span>Volver</span>`;
   boton.addEventListener('click', () => {
+    
     app.innerHTML = '';
-    if (objectViewGrid.viewGrid === true) {
-      listMoviesGrid(objectValueSelect.valueSelect)
-    } else if (objectViewGrid.viewGrid === false) {
-      listMoviesList(objectValueSelect.valueSelect)
+    if (objectValueSearch.valueSearch !== '') {
+      
+      if (objectViewGrid.viewGrid === true) {
+        listMoviesSearchGrid(objectValueSearch.searchApiResult)
+      } else if (objectViewGrid.viewGrid === false) {
+        listMoviesSearchList(objectValueSearch.searchApiResult)
+      }
+      
+      
+    }else if(objectValueSearch.valueSearch === ''){
+
+      if (objectViewGrid.viewGrid === true) {
+        listMoviesGrid(objectValueSelect.valueSelect)
+      } else if (objectViewGrid.viewGrid === false) {
+        listMoviesList(objectValueSelect.valueSelect)
+      }
     }
 
   });

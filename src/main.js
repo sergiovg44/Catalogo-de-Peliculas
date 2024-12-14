@@ -12,7 +12,8 @@ import {
 import {
         objectIdMovie,
         objectValueSelect,
-        objectViewGrid
+        objectViewGrid,
+        objectValueSearch
 } from "./config/config.js"
 
 import {
@@ -31,38 +32,65 @@ const selectList = document.querySelector("#select-list")
 listMoviesGrid(objectValueSelect.valueSelect)
 selectList.addEventListener("change", () => {
         objectValueSelect.valueSelect = selectList.value
+        objectValueSearch.valueSearch = ''
+        search.value = ''
 
+                if (objectViewGrid.viewGrid === true) {
+                        removeAll()
 
-        if (objectViewGrid.viewGrid === true) {
-                removeAll()
+                        listMoviesGrid(objectValueSelect.valueSelect)
 
-                listMoviesGrid(objectValueSelect.valueSelect)
+                } else if (objectViewGrid.viewGrid === false) {
 
-        } else if (objectViewGrid.viewGrid === false) {
+                        removeAll()
+                        listMoviesList(objectValueSelect.valueSelect)
+                }
 
-                removeAll()
-                listMoviesList(objectValueSelect.valueSelect)
-        }
 
 })
 
 const buttonGrid = document.querySelector("#button-grid")
 
 buttonGrid.addEventListener("click", () => {
-        if (objectViewGrid.viewGrid === false) {
-                removeAll()
-                listMoviesGrid(objectValueSelect.valueSelect)
 
-                objectViewGrid.viewGrid = !objectViewGrid.viewGrid
+        if (objectValueSearch.valueSearch !== '') {
+                if (objectViewGrid.viewGrid === false) {
+                        removeAll()
+                        listMoviesSearchGrid(objectValueSearch.searchApiResult)
+         // Este objeto es supuestamente donde voy a guardar el valor de buscada
+          // objectValueSearch.valueSearch
+                        objectViewGrid.viewGrid = !objectViewGrid.viewGrid
+                }
+        } else if (objectValueSearch.valueSearch === '') {
+
+                if (objectViewGrid.viewGrid === false) {
+                        removeAll()
+                        listMoviesGrid(objectValueSelect.valueSelect)
+
+                        objectViewGrid.viewGrid = !objectViewGrid.viewGrid
+                }
         }
 })
 const buttonRow = document.querySelector("#button-row")
 
 buttonRow.addEventListener("click", () => {
-        if (objectViewGrid.viewGrid === true) {
-                removeAll()
-                listMoviesList(objectValueSelect.valueSelect)
-                objectViewGrid.viewGrid = !objectViewGrid.viewGrid
+
+
+
+        if (objectValueSearch.valueSearch !== '') {
+                if (objectViewGrid.viewGrid === true) {
+                        removeAll()
+                        console.log(objectValueSearch.searchApiResult)
+                        listMoviesSearchList(objectValueSearch.searchApiResult)
+                        objectViewGrid.viewGrid = !objectViewGrid.viewGrid
+                }
+        } else if (objectValueSearch.valueSearch === '') {
+
+                if (objectViewGrid.viewGrid === true) {
+                        removeAll()
+                        listMoviesList(objectValueSelect.valueSelect)
+                        objectViewGrid.viewGrid = !objectViewGrid.viewGrid
+                }
         }
 })
 
@@ -74,31 +102,50 @@ async function getMovieSearch(element) {
 
         return data
 }
-let valueSearch = ''
+// Almacenamiento del estado del buscador
 const search = document.querySelector('#search-movie-input')
-search.addEventListener('input', (event) =>{
-        valueSearch=event.target.value
-        
-        console.log(valueSearch)
+search.addEventListener('input', (event) => {
+        objectValueSearch.valueSearch = event.target.value
+
+        // console.log(valueSearch)
 })
 
+// buscador boton
+
 const searchButton = document.querySelector('#search-movie-btn')
-searchButton.addEventListener("click", async (event) =>{
+searchButton.addEventListener("click", async (event) => {
         event.preventDefault();
-        // removeAll()
-        let searchApi = await getMovieSearch (valueSearch)
-        let searchApiResult = searchApi.results
-        console.log(searchApi)
 
-        if (objectViewGrid.viewGrid === true) {
-                removeAll()
-
-               await listMoviesSearchGrid(searchApiResult)
-
-        } else if (objectViewGrid.viewGrid === false) {
+        if (objectValueSearch.valueSearch !== '') {
 
                 removeAll()
-               await listMoviesSearchList(searchApiResult)
+                let searchApi = await getMovieSearch(objectValueSearch.valueSearch)
+                objectValueSearch.searchApiResult = searchApi.results
+
+
+                if (objectViewGrid.viewGrid === true) {
+
+
+                        await listMoviesSearchGrid(objectValueSearch.searchApiResult)
+
+                } else if (objectViewGrid.viewGrid === false) {
+
+
+                        await listMoviesSearchList(objectValueSearch.searchApiResult)
+                }
+
+        } else if (objectValueSearch.valueSearch === '') {
+
+                if (objectViewGrid.viewGrid === true) {
+                        removeAll()
+
+                        listMoviesGrid(objectValueSelect.valueSelect)
+
+                } else if (objectViewGrid.viewGrid === false) {
+
+                        removeAll()
+                        listMoviesList(objectValueSelect.valueSelect)
+                }
         }
 
 })
