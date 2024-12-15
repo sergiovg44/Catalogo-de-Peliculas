@@ -1,0 +1,14 @@
+Funcionalidades de mi proyecto:
+
+- Cambio de modo cuadricula y listado.
+
+- Cambio de listas por un selector. 
+
+- Vista de detalle al pulsar cualquier lugar de la caratula.
+
+- Botón de volver recordando el estado anterior.
+
+- El buscador es funcional (al poner una palabra y dar al intro o al botón de buscar). Además recuerda en que modo se encuentra y te pones las coincidencias en ese modo. Cuando el buscador lo pones en blanco y vuelves a hacer la búsqueda te pone el estado anterior a haber utilizado el buscador. Si cambias el selector del desplegable sale del modo busqueda. Por otro lado puedes cambiar entre la vista de cuadricula y listado sin salir de la busqueda.
+
+
+

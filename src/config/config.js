@@ -157,7 +157,7 @@ export let objectViewGrid = {
             "character": "Moana (voice)",
             "credit_id": "65c7a9bdaad9c20164b6234e",
             "order": 0
-        },
+        }, 
         {
             "adult": false,
             "gender": 2,

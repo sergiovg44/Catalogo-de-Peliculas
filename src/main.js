@@ -57,8 +57,10 @@ buttonGrid.addEventListener("click", () => {
                 if (objectViewGrid.viewGrid === false) {
                         removeAll()
                         listMoviesSearchGrid(objectValueSearch.searchApiResult)
-         // Este objeto es supuestamente donde voy a guardar el valor de buscada
-          // objectValueSearch.valueSearch
+                        // cambio el valor del selector
+                        selectList.value = 'blanco'
+
+                        
                         objectViewGrid.viewGrid = !objectViewGrid.viewGrid
                 }
         } else if (objectValueSearch.valueSearch === '') {
@@ -80,9 +82,10 @@ buttonRow.addEventListener("click", () => {
         if (objectValueSearch.valueSearch !== '') {
                 if (objectViewGrid.viewGrid === true) {
                         removeAll()
-                        console.log(objectValueSearch.searchApiResult)
+
                         listMoviesSearchList(objectValueSearch.searchApiResult)
                         objectViewGrid.viewGrid = !objectViewGrid.viewGrid
+                        selectList.value = 'blanco'
                 }
         } else if (objectValueSearch.valueSearch === '') {
 
@@ -107,7 +110,7 @@ const search = document.querySelector('#search-movie-input')
 search.addEventListener('input', (event) => {
         objectValueSearch.valueSearch = event.target.value
 
-        // console.log(valueSearch)
+
 })
 
 // buscador boton
@@ -127,15 +130,16 @@ searchButton.addEventListener("click", async (event) => {
 
 
                         await listMoviesSearchGrid(objectValueSearch.searchApiResult)
-
+                        selectList.value = 'blanco'
                 } else if (objectViewGrid.viewGrid === false) {
 
 
                         await listMoviesSearchList(objectValueSearch.searchApiResult)
+                        selectList.value = 'blanco'
                 }
 
         } else if (objectValueSearch.valueSearch === '') {
-
+                        selectList.value = objectValueSelect.valueSelect
                 if (objectViewGrid.viewGrid === true) {
                         removeAll()
 

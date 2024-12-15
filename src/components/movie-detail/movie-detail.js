@@ -29,7 +29,7 @@ async function getMovieListData(element) {
   return data
 }
 
-// Crear el banner individualmente
+// Crear el imagen individualmente
 function createMovieBannerImage(imageUrl) {
   const img = document.createElement('img');
   img.src = getMoviePosterUrl(imageUrl, 500);
@@ -53,9 +53,9 @@ function createMovieDetail(label, value,) {
 }
 
 // Crear el título de la sinopsis
-function createSynopsisTitle() {
+function createSynopsisTitle(texto) {
   const h2 = document.createElement('h2');
-  h2.textContent = 'Sinopsis';
+  h2.textContent = texto;
   return h2;
 }
 
@@ -130,6 +130,7 @@ export async function createMoviePage(id) {
 
   const infoContainer = document.createElement('div');
   infoContainer.className = 'informacion';
+  // poner todos los generos
   const genreNames = movieData.genres.map(genre => genre.name).join(', ');
   const genreDetail = createMovieDetail('Género', genreNames, 'genre');
   // console.log(genreNames)
@@ -137,7 +138,7 @@ export async function createMoviePage(id) {
   const yearDetail = createMovieDetail('Año', movieData.release_date, 'year');
 
   infoContainer.appendChild(genreDetail);
-  // infoContainer.appendChild(durationDetail);
+
   infoContainer.appendChild(ratingDetail);
   infoContainer.appendChild(yearDetail);
 
@@ -148,7 +149,7 @@ export async function createMoviePage(id) {
   const synopsisContainer = document.createElement('section');
   synopsisContainer.className = 'movie-overview-details';
 
-  const synopsisTitle = createSynopsisTitle();
+  const synopsisTitle = createSynopsisTitle('Sipnosis');
   const synopsisContent = createSynopsisContent(movieData.overview);
 
   synopsisContainer.appendChild(synopsisTitle);
@@ -161,12 +162,65 @@ export async function createMoviePage(id) {
 
   // Añadir el contenedor secundario al contenedor principal
   mainContainer.appendChild(secondaryContainer);
-
+  console.log(movieDataCredit)
   // Añadir el contenedor principal al DOM
   app.appendChild(mainContainer);
+  app.appendChild(movieActors(movieDataCredit));
 }
 
 
+// Crear el contenedor principal
+function movieActors (element){
+
+  const container = document.createElement('div');
+  container.classList.add('container-actors');
+  
+  // Crear y añadir el título
+  // const title = document.createElement('h2');
+  // title.textContent = 'Actores';
+  container.appendChild(createSynopsisTitle('Actores'));
+  
+  
+  // Crear el contenedor de actores
+  const actorsContainer = document.createElement('div');
+  actorsContainer.classList.add('actors');
+  
+  // Generar dinámicamente los elementos para cada actor
+  
+  // element.forEach(actor => {
+    for (let i = 0; i<6;i++ ){
+
+      // Crear el contenedor de cada actor
+      const actorDiv = document.createElement('div');
+      actorDiv.classList.add('actor');
+      
+      // Crear y añadir la imagen
+      const img = document.createElement('img');
+      img.src = 'https://media.themoviedb.org/t/p/w138_and_h175_face'+element[i].profile_path;
+      actorDiv.appendChild(img);
+      
+      // Crear y añadir el nombre del actor
+      const nameActors = document.createElement('p');
+      nameActors.textContent = element[i].name;
+      actorDiv.appendChild(nameActors);
+      
+      // Crear y añadir el personaje
+      const characterActors = document.createElement('p');
+      characterActors.textContent = element[i].character;
+      actorDiv.appendChild(characterActors);
+      
+      // Añadir el actorDiv al contenedor principal
+      actorsContainer.appendChild(actorDiv);
+    
+  }
+
+  // Añadir el contenedor de actores al contenedor principal
+  container.appendChild(actorsContainer);
+  
+  return container
+}
+  
+  
 
 
 
@@ -182,19 +236,13 @@ async function getMovieCredit(element) {
 
   const actors = data.cast.map(actor => ({
     name: actor.name,
-    profile_path: actor.profile_path,
+    profile_path:actor.profile_path,
     character: actor.character
   }));
+  
+ 
 
-  // Extraer información del equipo técnico en el departamento de "Directing"
-  const directors = data.crew
-    .filter(crewMember => crewMember.department === "Directing" && crewMember.known_for_department === "Directing" && crewMember.job === "Director")
-    .map(director => ({
-      job: director.job
-
-    }));
-
-  let actorDirecting = { actors, directors }
+  let actorDirecting =  actors 
 
   return actorDirecting
 }
