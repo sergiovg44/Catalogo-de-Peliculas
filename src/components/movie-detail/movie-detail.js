@@ -175,9 +175,7 @@ function movieActors (element){
   const container = document.createElement('div');
   container.classList.add('container-actors');
   
-  // Crear y añadir el título
-  // const title = document.createElement('h2');
-  // title.textContent = 'Actores';
+ 
   container.appendChild(createSynopsisTitle('Actores'));
   
   
@@ -226,9 +224,7 @@ function movieActors (element){
 
 
 async function getMovieCredit(element) {
-  // Traemos los datos del servidor (el popular es lo que me va cambiando el tipo de listado de pelis)
-  // al tener un objeto ya con las listas de peliculas nos lo traemos en un 
-  // en un futuro pasarselo por parametros
+
 
   const url = `https://api.themoviedb.org/3/movie/${element}/credits?api_key=${apiConfig.apiKey}&language=${apiConfig.langIso}`
   const data = await fetchMoviesData(url)

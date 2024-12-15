@@ -141,11 +141,6 @@ function movieRow(id) {
     objectIdMovie.valorId = id
     createMoviePage(id)
     
-
-
-
-
-
   })
   return divRow
 }
@@ -189,17 +184,10 @@ export function connectionParentList(movie) {
   createCol11.appendChild(movieId(movie.id))
 }
 
-
-
-
-// Aqui en un futuro hay que añadir tambien para que borre el modo lista y el de detalles
-
-
 export function removeAll() {
   const app = document.querySelector('#app');
   app.innerHTML = '';
 }
-
 
 export function listMoviesList(valueSelect) {
 
@@ -215,7 +203,6 @@ export function listMoviesList(valueSelect) {
   })
 }
 
-
 export function listMoviesSearchList(search) {
 
 
@@ -228,14 +215,10 @@ export function listMoviesSearchList(search) {
 
 export function listMoviesSearchGrid(search) {
 
- 
-
     container()
 
- 
     search.forEach(element => {
       connectionParent(element)
-
 
     });
   }
