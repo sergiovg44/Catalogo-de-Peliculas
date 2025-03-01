@@ -185,7 +185,7 @@ function movieActors (element){
   
   // Generar dinámicamente los elementos para cada actor
   
-  // element.forEach(actor => {
+  
     for (let i = 0; i<6;i++ ){
 
       // Crear el contenedor de cada actor

@@ -19,6 +19,7 @@ async function getMovieListData(element) {
 
   const url = getMovieListUrl(element)
   const data = await fetchMoviesData(url)
+  console.log(data)
   return data?.results
 }
 // Funcion para crear el div que contiene toda para la vista de cuadricula
